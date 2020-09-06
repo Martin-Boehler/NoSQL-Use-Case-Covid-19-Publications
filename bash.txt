@@ -1,0 +1,6 @@
+mkdir data
+mkdir mongo
+mkdir neo4j
+mkdir redis
+cd docker
+docker-compose up

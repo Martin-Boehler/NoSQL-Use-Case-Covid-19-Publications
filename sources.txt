@@ -1,0 +1,7 @@
+# CORD-19: (cord-19_2020-08-29.csv)
+# https://www.semanticscholar.org/cord19/download
+# https://github.com/allenai/cord19
+
+# WHO COVID-19: (who_covid-19_20200831.csv)
+# https://www.who.int/emergencies/diseases/novel-coronavirus-2019/global-research-on-novel-coronavirus-2019-ncov
+# https://search.bvsalud.org/global-literature-on-novel-coronavirus-2019-ncov/
