@@ -24,14 +24,14 @@ print(mongo_collection.distinct("author"))
 print(mongo_collection.distinct("journal"))
 print(mongo_collection.distinct("source"))
 
-pipeline = [
+mongo_query = [
     {"$group": {
         "_id": "$author",
         "count": {"$sum": 1}}},
     {"$sort": {"count": -1}},
     {"$limit": 10}
 ]
-print(list(mongo_collection.aggregate(pipeline)))
+print(list(mongo_collection.aggregate(mongo_query)))
 
 # REDIS CONNECTION:
 port = 6379
@@ -39,8 +39,8 @@ database = 0
 redis_connection = redis.StrictRedis(host, port, database, charset="utf-8", decode_responses=True)
 
 # REDIS QUERIES:
-list = redis_connection.hgetall("protein")
-for key, value in list.items():
+redis_query = redis_connection.hgetall("protein")
+for key, value in redis_query.items():
     print(key, "\n ===> ", value, "\n")
 
 # NEO4J:
