@@ -15,6 +15,7 @@ mongo_database = mongo_connection.get_database(database)
 mongo_collection = mongo_database.get_collection(collection)
 
 # MONGO QUERIES:
+print("\n\n\n MONGO Output:")
 print(len(mongo_collection.distinct("author")))
 print(len(mongo_collection.distinct("title")))
 print(len(mongo_collection.distinct("journal")))
@@ -39,16 +40,17 @@ database = 0
 redis_connection = redis.StrictRedis(host, port, database, charset="utf-8", decode_responses=True)
 
 # REDIS QUERIES:
+print("\n\n\n REDIS Output:")
 redis_query = redis_connection.hgetall("protein")
 for key, value in redis_query.items():
     print(key, "\n ===> ", value, "\n")
 
 # NEO4J:
 """"
+MATCH (s:Source) RETURN count(s)
+MATCH (j:Journal) RETURN count(j)
 MATCH (a:Author) RETURN count(a)
 MATCH (t:Title) RETURN count(t)
-MATCH (j:Journal) RETURN count(j)
-MATCH (s:Source) RETURN count(s)
 MATCH ()-[r:HAS_PUBLISHED]->() RETURN count(r)
 MATCH ()-[r:WORKED_TOGETHER]->() RETURN count(r)
 
@@ -57,15 +59,15 @@ WITH a, count(b) AS clustersize
 WHERE clustersize >= 30
 RETURN a
 
-MATCH (s:Source)-[r:CONTAIN]->(a:Author)
-WITH a, count(r) as count
-WHERE count = 2
-RETURN a
-
 MATCH (j:Journal)-[r:HAS_PUBLISHED]->(t:Title)
 WITH j, count(r) as count
 WHERE count >= 50
 RETURN j
+
+MATCH (s:Source)-[r:CONTAIN]->(a:Author)
+WITH a, count(r) as count
+WHERE count = 2
+RETURN a
 
 MATCH (j:Journal { name: 'Plos One' } )-[r:HAS_PUBLISHED]-() RETURN count(r) as count
 MATCH (j:Journal { name: 'Plos One' } )-[r:HAS_PUBLICATED]-() RETURN count(r) as count
